@@ -105,6 +105,8 @@ controller.updateAddress = async (req) => {
 
 controller.updateUserDetails = async (req) => {
     try {
+        console.log("dec", req.decoded)
+        console.log("req.body", req.body)
         if (!req.decoded) return "field required"
         if (!req.body) return "field required";
         const viewModelInput = userViewModel.updateUserDetails(req)

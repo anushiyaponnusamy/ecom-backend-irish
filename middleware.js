@@ -11,8 +11,9 @@ validationMiddleware.validateToken = async (req, res, next) => {
         }
         try {
             const decoded = jwtToken.verify(token.split(' ')[1], process.env.JWT_SECRET);
+
             if (decoded) {
-                const user = await dbHelper.getUserByUserId(decoded._id);
+                const user = await dbHelper.getUserByUserId(decoded.userId);
                 req.decoded = user;
                 next();
             }

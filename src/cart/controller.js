@@ -11,7 +11,9 @@ controller.addToCart = async (req) => {
             return 'product already exists'
         }
         const cartViewModel = viewModel.createViewModel(req)
-        return await dbHelper.addToCart(cartViewModel);
+        const response = await dbHelper.addToCart(cartViewModel);
+        const cartCount = await dbHelper.getCartItemCountByUserId(req.body.userId)
+        return { ...response?._doc, cartCount }
     } catch (error) {
         return Promise.reject(error)
     }
@@ -49,7 +51,11 @@ controller.checkCart = async (req) => {
 
 controller.deleteCartItemByUserIdAndProductId = async (req) => {
     try {
-        return await dbHelper.deleteCartItemByUserIdAndProductId(req.params.productId, req.params.userId);
+        if (!req.params.productId && !req.params.userId) return 'field required'
+        const response = await dbHelper.deleteCartItemByUserIdAndProductId(req.params.productId, req.params.userId);
+
+        const cartCount = await dbHelper.getCartItemCountByUserId(req.params.userId);
+        return { ...response, cartCount }
     } catch (error) {
         return Promise.reject(error)
     }
