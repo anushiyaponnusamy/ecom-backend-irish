@@ -29,7 +29,7 @@ dbHelper.getAllCategories = () => {
 dbHelper.updatecategory = async (categoryId, _name) => {
     try {
         return await CategorySchema.findOneAndUpdate({ _id: categoryId },
-            { $set: { name: _name, slug: slugify(_name) } }, { new: true });
+            { $set: { name: _name } }, { new: true });
 
     } catch (error) {
         return Promise.reject(error)

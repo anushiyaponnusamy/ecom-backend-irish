@@ -6,11 +6,9 @@ const productRouter = require('./src/product/route')
 const cartRouter = require('./src/cart/route');
 const wishlistRouter = require('./src/wishlist/route')
 
-const orderRouter = require('./src/orders/route')
 const cors = require("cors");
 const connectToMongoDb = require("./mongodbConnection/databaseConnection");
 const uploadMiddleware = require("./src/uploadImage");
-const paymentGatewayRouter = require("./src/paymentgateway/route");
 const enviroment = process.argv[2] || "development";
 dotenv.config({
   path: `${__dirname}/config/.env.${enviroment}`,
@@ -30,8 +28,6 @@ app.use('/category', categoryRouter)
 app.use('/product', productRouter)
 app.use('/wishlist', wishlistRouter)
 app.use('/cart', cartRouter)
-app.use('/payment', paymentGatewayRouter)
-app.use('/order', orderRouter)
 app.get("/", (req, res, next) => res.status(200).json({ root: "ok" }));
 app.post('/uploadImage', uploadMiddleware, (req, res) => {
   const imageUrl = req.imageUrl;

@@ -9,8 +9,8 @@ productViewModel.createViewModel = (req) => {
     viewModel.description = body.description;
     viewModel.quantity = body.quantity;
     viewModel.photo = body.photo;
-    viewModel.categoryId = body.category._id;
-    viewModel.categoryName = body.category.name;
+    viewModel.categoryId = body?.category?._id;
+    viewModel.categoryName = body?.category?.name;
     viewModel.shipping = body?.shipping;
     return viewModel
 }

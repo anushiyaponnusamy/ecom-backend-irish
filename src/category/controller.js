@@ -1,5 +1,4 @@
 const dbHelper = require('./dbHelper');
-const categoryViewModel = require('./viewModel');
 
 const controller = {}
 controller.createcategory = async (req) => {
