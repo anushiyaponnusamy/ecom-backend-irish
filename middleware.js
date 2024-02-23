@@ -12,11 +12,9 @@ validationMiddleware.validateToken = async (req, res, next) => {
         try {
             const decoded = jwtToken.verify(token.split(' ')[1], process.env.JWT_SECRET);
 
-            console.log("dec", decoded)
             if (decoded) {
                 const user = await dbHelper.getUserByUserId(decoded?.userId || decoded?._id);
                 req.decoded = user;
-                console.log("u", user)
                 if (user)
                     next();
             }
@@ -30,7 +28,6 @@ validationMiddleware.validateToken = async (req, res, next) => {
 }
 validationMiddleware.validateAdmin = async (req, res, next) => {
     try {
-        console.log("dec", req.decoded)
 
         if (req?.decoded?.role === "admin")
             next();
